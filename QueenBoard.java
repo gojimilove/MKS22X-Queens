@@ -40,6 +40,7 @@ public class QueenBoard {
       for (int j = 0; j < board[0].length; j++) {
         if (board[i][j] == 0) s+="_ ";
         else s+="Q ";
+        //s+=board[i][j];
       }
       s+="\n";
     }
