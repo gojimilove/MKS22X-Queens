@@ -4,5 +4,7 @@ public class Driver {
     System.out.println(a);
     a.addQueen(5,5);
     System.out.println(a);
+    a.removeQueen(5,5);
+    System.out.println(a);
   }
 }
