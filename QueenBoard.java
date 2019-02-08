@@ -13,7 +13,13 @@ public class QueenBoard {
         if (board[r][i] != -1) board[r][i]++;
       }
       for (int i = 0; i < board.length; i++) {
-       if (board[i][c] != -1) board[i][c]++;
+        if (board[i][c] != -1) board[i][c]++;
+      }
+      for (int i = 1; i < board.length-c; i++) {
+        if (board[r+i][c+i] != -1) board[r+i][c+i]++;
+      }
+      for (int i = 1; i < board.length-c; i++) {
+        if (board[r-i][c+i] != -1) board[r-i][c+i]++;
       }
       return true;
     }
@@ -28,6 +34,12 @@ public class QueenBoard {
       }
       for (int i = 0; i < board.length; i++) {
        if (board[i][c] != 0) board[i][c]--;
+      }
+      for (int i = 1; i < board.length-c; i++) {
+        if (board[r+i][c+i] != 0) board[r+i][c+i]--;
+      }
+      for (int i = 1; i < board.length-c; i++) {
+        if (board[r-i][c+i] != 0) board[r-i][c+i]--;
       }
       return true;
     }
@@ -50,10 +62,10 @@ public class QueenBoard {
     String s = "";
     for (int i = 0; i < board.length; i++) {
       for (int j = 0; j < board[0].length; j++) {
-        //if (board[i][j] == 0) s+="_ ";
-        //else if (board[i][j] == -1) s+="Q ";
-        //else s+="X ";
-        s+=board[i][j]+" ";
+        if (board[i][j] == 0) s+="_ ";
+        else if (board[i][j] == -1) s+="Q ";
+        else s+="X ";
+        //s+=board[i][j]+" ";
       }
       s+="\n";
     }
