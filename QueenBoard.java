@@ -76,7 +76,13 @@ public class QueenBoard {
   // *        true when the board is solveable, and leaves the board in a solved state
   // *@throws IllegalStateException when the board starts with any non-zero value
   // */
-  // public boolean solve(){}
+  public boolean solve(){
+    for (int i = 0; i < board.length; i++) {
+      for (int j = 0; j < board.length; j++) {
+        if (addQueen(i,j)) System.out.println(board);
+      }
+    }
+  }
   //
   // /**
   // *@return the number of solutions found, and leaves the board filled with only 0's
