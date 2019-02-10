@@ -1,8 +1,10 @@
 public class QueenBoard {
   private int[][] board;
+  private int count;
 
   public QueenBoard(int size){
     board = new int[size][size];
+    count = 0;
   }
 
   public boolean addQueen(int r, int c) {
@@ -15,10 +17,10 @@ public class QueenBoard {
       for (int i = 0; i < board.length; i++) {
         if (board[i][c] != -1) board[i][c]++;
       }
-      for (int i = 1; i < board.length-c; i++) {
+      for (int i = 1; i < board.length-c && i < board.length-r; i++) {
         if (board[r+i][c+i] != -1) board[r+i][c+i]++;
       }
-      for (int i = 1; i < board.length-c; i++) {
+      for (int i = 1; i <= r && i < board.length-c; i++) {
         if (board[r-i][c+i] != -1) board[r-i][c+i]++;
       }
       return true;
@@ -35,10 +37,10 @@ public class QueenBoard {
       for (int i = 0; i < board.length; i++) {
        if (board[i][c] != 0) board[i][c]--;
       }
-      for (int i = 1; i < board.length-c; i++) {
+      for (int i = 1; i < board.length-c && i < board.length-r; i++) {
         if (board[r+i][c+i] != 0) board[r+i][c+i]--;
       }
-      for (int i = 1; i < board.length-c; i++) {
+      for (int i = 1; i <= r && i < board.length-c; i++) {
         if (board[r-i][c+i] != 0) board[r-i][c+i]--;
       }
       return true;
@@ -77,11 +79,21 @@ public class QueenBoard {
   // *@throws IllegalStateException when the board starts with any non-zero value
   // */
   public boolean solve(){
-    for (int i = 0; i < board.length; i++) {
-      for (int j = 0; j < board.length; j++) {
-        if (addQueen(i,j)) System.out.println(board);
-      }
+  	if (count == 8) {
+  		return true;
+  		System.out.println(toString());
+  	}
+  	else{
+    	for (int i = 0; i < board.length; i++) {
+      	for (int j = 0; j < board.length; j++) {
+        	if (addQueen(i,j)) {
+
+        	System.out.println(toString());
+        	}
+      	}
+    	}
     }
+    return false;
   }
   //
   // /**
