@@ -1,17 +1,25 @@
 public class QueenBoard {
   private int[][] board;
-  private int count;
 
   public QueenBoard(int size){
     board = new int[size][size];
-    count = 0;
   }
 
+  /**
+   * Attempts to add a queen at specified row, col coords. If
+   * successful, marks specified position as -1 to indicate queen,
+   * adds 1 to all threatened positions to the right and above
+   * 
+   * @param r row to add queen at
+   * @param c column to add queen at
+   * @return  true if possible to place queen without threatening
+   *          one another, false if not possible
+  */
   public boolean addQueen(int r, int c) {
     if (board[r][c] != 0) return false;
     else {
       board[r][c] = -1;
-      for (int i = c+1; i < board.length; i++) {
+      for (int i = c + 1; i < board.length; i++) {
         if (board[r][i] != -1) board[r][i]++;
       }
       for (int i = 0; i < board.length; i++) {
@@ -47,6 +55,10 @@ public class QueenBoard {
     }
   }
 
+  public int length() {
+  	return board.length;
+  }
+
   // /**
   // *@return The output string formatted as follows:
   // *All numbers that represent queens are replaced with 'Q'
@@ -60,13 +72,13 @@ public class QueenBoard {
   // *excludes the character up to the *)
   // */
   //
-  public String toString(){
+  public String toString() {
     String s = "";
     for (int i = 0; i < board.length; i++) {
       for (int j = 0; j < board[0].length; j++) {
         if (board[i][j] == 0) s+="_ ";
         else if (board[i][j] == -1) s+="Q ";
-        else s+="X ";
+        else s+="_ ";
         //s+=board[i][j]+" ";
       }
       s+="\n";
@@ -78,22 +90,30 @@ public class QueenBoard {
   // *        true when the board is solveable, and leaves the board in a solved state
   // *@throws IllegalStateException when the board starts with any non-zero value
   // */
-  public boolean solve(){
-  	if (count == 8) {
-  		return true;
-  		System.out.println(toString());
-  	}
-  	else{
-    	for (int i = 0; i < board.length; i++) {
-      	for (int j = 0; j < board.length; j++) {
-        	if (addQueen(i,j)) {
+  public boolean solve() {
+  	return nq(this, 0);
+  }
 
-        	System.out.println(toString());
-        	}
-      	}
-    	}
+  private boolean nq(QueenBoard b, int r) {
+  	for (int i = 0; i < b.length(); i++) {
+  		System.out.println("Test: "+i);
+  		boolean success = b.addQueen(r, i);
+  		System.out.println("Row: "+r+" Col: "+i+" Success: "+success);
+  		if (!success) {
+  			return false;
+  		} 
+  		else {
+  			if (r == b.length()) {
+  				System.out.println(b);
+  				return true;
+  			} 
+  			else {
+  				System.out.println(b);
+	  			return nq(b, r+1);
+  			}
+  		}
     }
-    return false;
+    return true;
   }
   //
   // /**
