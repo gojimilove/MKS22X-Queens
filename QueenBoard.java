@@ -65,9 +65,9 @@ public class QueenBoard {
   // *all others are displayed as underscores '_'
   // *There are spaces between each symbol:
   // *"""_ _ Q _
-  // *Q _ _ _
-  // *_ _ _ Q
-  // *_ Q _ _"""
+  // *   Q _ _ _
+  // *   _ _ _ Q
+  // *   _ Q _ _"""
   // *(pythonic string notation for clarity,
   // *excludes the character up to the *)
   // */
@@ -94,26 +94,42 @@ public class QueenBoard {
   	return nq(this, 0);
   }
 
-  private boolean nq(QueenBoard b, int r) {
-  	for (int i = 0; i < b.length(); i++) {
-  		System.out.println("Test: "+i);
-  		boolean success = b.addQueen(r, i);
-  		System.out.println("Row: "+r+" Col: "+i+" Success: "+success);
-  		if (!success) {
-  			return false;
-  		} 
-  		else {
-  			if (r == b.length()) {
-  				System.out.println(b);
-  				return true;
-  			} 
-  			else {
-  				System.out.println(b);
-	  			return nq(b, r+1);
+  // private boolean nq(QueenBoard b, int c) {
+  // 	for (int i = 0; i < b.length(); i++) {
+  // 		boolean success = b.addQueen(i,c);
+  // 		System.out.println("\nRow: "+i+" Col: "+c+" Success: "+success);
+  // 		// if (!success) {//if it doesnt fit
+  // 		// 	return false;
+  // 		// } 
+  // 		if (success) {
+  // 			if (c == b.length()) {
+  // 				System.out.println(b);
+  // 				return true;
+  // 			} 
+  // 			else {
+  // 				System.out.println(b);
+	 //  			return nq(b, c+1);
+  // 			}
+  // 		}
+  //   }
+  //   return true;
+  // }
+
+  private boolean nq(QueenBoard b, int c) {
+  	if (c == b.length()) {
+  		System.out.println(b);
+  		return true;
+  	}
+  	else {
+  		for (int r = 0; r < b.length(); r++) {
+  			//System.out.println("["+r+", "+c+"]");
+  			if (b.addQueen(r, c)) {
+  				//System.out.println(b);
+  				return nq(b, c+1);
   			}
   		}
-    }
-    return true;
+  	}
+  	return false;
   }
   //
   // /**
