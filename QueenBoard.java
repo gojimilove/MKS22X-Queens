@@ -9,7 +9,7 @@ public class QueenBoard {
    * Attempts to add a queen at specified row, col coords. If
    * successful, marks specified position as -1 to indicate queen,
    * adds 1 to all threatened positions to the right and above
-   * 
+   *
    * @param r row to add queen at
    * @param c column to add queen at
    * @return  true if possible to place queen without threatening
@@ -100,12 +100,12 @@ public class QueenBoard {
   // 		System.out.println("\nRow: "+i+" Col: "+c+" Success: "+success);
   // 		// if (!success) {//if it doesnt fit
   // 		// 	return false;
-  // 		// } 
+  // 		// }
   // 		if (success) {
   // 			if (c == b.length()) {
   // 				System.out.println(b);
   // 				return true;
-  // 			} 
+  // 			}
   // 			else {
   // 				System.out.println(b);
 	 //  			return nq(b, c+1);
@@ -125,7 +125,8 @@ public class QueenBoard {
   			//System.out.println("["+r+", "+c+"]");
   			if (b.addQueen(r, c)) {
   				//System.out.println(b);
-  				return nq(b, c+1);
+  				if (nq(b, c+1)) return true;
+          b.removeQueen(r,c);
   			}
   		}
   	}
