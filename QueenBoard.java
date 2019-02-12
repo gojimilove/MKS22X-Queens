@@ -22,18 +22,22 @@ public class QueenBoard {
     		c >= board.length || 
     		r < 0 ||
     		c < 0 ||
-    		board[r][c] != 0) return false;
+    		board[r][c] != 0) return false; //if input out of bounds or if the space is threatened
     else {
-      board[r][c] = -1;
+      board[r][c] = -1; //place queen
+      //threaten spaces vertically
       for (int i = c + 1; i < board.length; i++) {
         if (board[r][i] != -1) board[r][i]++;
       }
+      //threaten spaces horizontally to the right
       for (int i = 0; i < board.length; i++) {
         if (board[i][c] != -1) board[i][c]++;
       }
+      //threaten spaces diagonally up and right
       for (int i = 1; i < board.length-c && i < board.length-r; i++) {
         if (board[r+i][c+i] != -1) board[r+i][c+i]++;
       }
+      //threaten spaces diagonally down and right
       for (int i = 1; i <= r && i < board.length-c; i++) {
         if (board[r-i][c+i] != -1) board[r-i][c+i]++;
       }
@@ -55,18 +59,22 @@ public class QueenBoard {
     		c >= board.length || 
     		r < 0 ||
     		c < 0 ||
-    		board[r][c] != -1) return false;
+    		board[r][c] != -1) return false; //if input out of bounds or if there is no queen to remove
     else {
-      board[r][c] = 0;
+      board[r][c] = 0; //remove queen
+      //remove threat vertically
       for (int i = c+1; i < board.length; i++) {
         if (board[r][i] != -1) board[r][i]--;
       }
+      //remove threat horizontally right
       for (int i = 0; i < board.length; i++) {
        if (board[i][c] != 0) board[i][c]--;
       }
+      //remove threat diagonally up and right
       for (int i = 1; i < board.length-c && i < board.length-r; i++) {
         if (board[r+i][c+i] != 0) board[r+i][c+i]--;
       }
+      //remove threat diagonally down and right
       for (int i = 1; i <= r && i < board.length-c; i++) {
         if (board[r-i][c+i] != 0) board[r-i][c+i]--;
       }
@@ -114,16 +122,22 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public boolean solve() {
+  	//if the board starts with non-zero values throw exception
+  	for (int i = 0; i < board.length; i++) {
+  		for (int j = 0; j < board.length; j++) {
+  			if (board[i][j] != 0) throw new IllegalStateException("the board is not empty");
+  		}
+  	}
   	return solveH(this, 0);
   }
 
   private boolean solveH(QueenBoard b, int c) {
-  	if (c == b.length()) {
+  	if (c == b.length()) { //base case all columns have been filled
   		//System.out.println(b);
   		return true;
   	}
   	else {
-  		for (int r = 0; r < b.length(); r++) {
+  		for (int r = 0; r < b.length(); r++) { //for each row
   			//System.out.println("["+r+", "+c+"]");
   			if (b.addQueen(r, c)) {
   				//System.out.println(b);
@@ -140,6 +154,7 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions() {
+  	//if the board starts with non-zero values throw exception
   	for (int i = 0; i < board.length; i++) {
   		for (int j = 0; j < board.length; j++) {
   			if (board[i][j] != 0) throw new IllegalStateException("the board is not empty");
@@ -149,8 +164,9 @@ public class QueenBoard {
   	return counter;
   }
 
+  //similar to solveH but it doesn't stop at one solution, adds to the counter instead
   private boolean countH(QueenBoard b, int c) {
-  	if (c == b.length()) {
+  	if (c == b.length()) { //base case all columns have been filled
   		//System.out.println(b);
   		counter++;
   		//System.out.println("Solutions: "+counter);
