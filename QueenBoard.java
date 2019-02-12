@@ -1,14 +1,16 @@
 public class QueenBoard {
   private int[][] board;
+  private int counter;
 
   public QueenBoard(int size){
     board = new int[size][size];
+    counter = 0;
   }
 
   /**
    * Attempts to add a queen at specified row, col coords. If
    * successful, marks specified position as -1 to indicate queen,
-   * adds 1 to all threatened positions to the right and above
+   * adds 1 to all threatened positions to the right, below, and above
    *
    * @param r row to add queen at
    * @param c column to add queen at
@@ -35,6 +37,15 @@ public class QueenBoard {
     }
   }
 
+  /**
+   * Attempts to remove a queen from specified row, col coords. If
+   * successful, marks specified position as 0 to remove the queen,
+   * subtracts 1 from all previously threatened positions to the right, below, and above
+   *
+   * @param r row to remove queen from
+   * @param c column to remove queen from
+   * @return  true if there is a queen at the given coordinates to remove, false otherwise
+  */
   public boolean removeQueen(int r, int c){
     if (board[r][c] != -1) return false;
     else {
@@ -55,23 +66,26 @@ public class QueenBoard {
     }
   }
 
+  /**
+  *@return the size of the board (length or width, they're the same)
+  */
   public int length() {
   	return board.length;
   }
 
-  // /**
-  // *@return The output string formatted as follows:
-  // *All numbers that represent queens are replaced with 'Q'
-  // *all others are displayed as underscores '_'
-  // *There are spaces between each symbol:
-  // *"""_ _ Q _
-  // *   Q _ _ _
-  // *   _ _ _ Q
-  // *   _ Q _ _"""
-  // *(pythonic string notation for clarity,
-  // *excludes the character up to the *)
-  // */
-  //
+  /**
+  *@return The output string formatted as follows:
+  *All numbers that represent queens are replaced with 'Q'
+  *all others are displayed as underscores '_'
+  *There are spaces between each symbol:
+  *"""_ _ Q _
+  *   Q _ _ _
+  *   _ _ _ Q
+  *   _ Q _ _"""
+  *(pythonic string notation for clarity,
+  *excludes the character up to the *)
+  */
+  
   public String toString() {
     String s = "";
     for (int i = 0; i < board.length; i++) {
@@ -85,58 +99,58 @@ public class QueenBoard {
     }
     return s;
   }
-  // /**
-  // *@return false when the board is not solveable and leaves the board filled with zeros;
-  // *        true when the board is solveable, and leaves the board in a solved state
-  // *@throws IllegalStateException when the board starts with any non-zero value
-  // */
+
+  /**
+  *@return false when the board is not solveable and leaves the board filled with zeros;
+  *        true when the board is solveable, and leaves the board in a solved state
+  *@throws IllegalStateException when the board starts with any non-zero value
+  */
   public boolean solve() {
-  	return nq(this, 0);
+  	return solveH(this, 0);
   }
 
-  // private boolean nq(QueenBoard b, int c) {
-  // 	for (int i = 0; i < b.length(); i++) {
-  // 		boolean success = b.addQueen(i,c);
-  // 		System.out.println("\nRow: "+i+" Col: "+c+" Success: "+success);
-  // 		// if (!success) {//if it doesnt fit
-  // 		// 	return false;
-  // 		// }
-  // 		if (success) {
-  // 			if (c == b.length()) {
-  // 				System.out.println(b);
-  // 				return true;
-  // 			}
-  // 			else {
-  // 				System.out.println(b);
-	 //  			return nq(b, c+1);
-  // 			}
-  // 		}
-  //   }
-  //   return true;
-  // }
-
-  private boolean nq(QueenBoard b, int c) {
+  private boolean solveH(QueenBoard b, int c) {
   	if (c == b.length()) {
   		System.out.println(b);
-  		return true;
+  		//return true;
   	}
   	else {
   		for (int r = 0; r < b.length(); r++) {
   			//System.out.println("["+r+", "+c+"]");
   			if (b.addQueen(r, c)) {
   				//System.out.println(b);
-  				if (nq(b, c+1)) return true;
+  				if (solveH(b, c+1)) return true;
           b.removeQueen(r,c);
   			}
   		}
   	}
   	return false;
   }
-  //
-  // /**
-  // *@return the number of solutions found, and leaves the board filled with only 0's
-  // *@throws IllegalStateException when the board starts with any non-zero value
-  // */
-  // public int countSolutions(){}
+  
+  /**
+  *@return the number of solutions found, and leaves the board filled with only 0's
+  *@throws IllegalStateException when the board starts with any non-zero value
+  */
+  public int countSolutions() {
+  	countH(this, 0);
+  	return counter;
+  }
+
+  private boolean countH(QueenBoard b, int c) {
+  	if (c == b.length()) {
+  		//System.out.println(b);
+  		counter++;
+  		//System.out.println("Solutions: "+counter);
+  	}
+  	else {
+  		for (int r = 0; r < b.length(); r++) {
+  			if (b.addQueen(r, c)) {
+  				if (countH(b, c+1)) return true;
+          b.removeQueen(r,c);
+  			}
+  		}
+  	}
+  	return false;
+  }
 
 }
