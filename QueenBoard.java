@@ -18,7 +18,11 @@ public class QueenBoard {
    *          one another, false if not possible
   */
   public boolean addQueen(int r, int c) {
-    if (board[r][c] != 0) return false;
+    if (r >= board.length || 
+    		c >= board.length || 
+    		r < 0 ||
+    		c < 0 ||
+    		board[r][c] != 0) return false;
     else {
       board[r][c] = -1;
       for (int i = c + 1; i < board.length; i++) {
@@ -47,7 +51,11 @@ public class QueenBoard {
    * @return  true if there is a queen at the given coordinates to remove, false otherwise
   */
   public boolean removeQueen(int r, int c){
-    if (board[r][c] != -1) return false;
+    if (r >= board.length || 
+    		c >= board.length || 
+    		r < 0 ||
+    		c < 0 ||
+    		board[r][c] != -1) return false;
     else {
       board[r][c] = 0;
       for (int i = c+1; i < board.length; i++) {
