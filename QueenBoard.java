@@ -74,6 +74,13 @@ public class QueenBoard {
   }
 
   /**
+  @return the number value at the given row and column of the board
+  */
+  public int getSpace(int r, int c) {
+  	return board[r][c];
+  }
+
+  /**
   *@return The output string formatted as follows:
   *All numbers that represent queens are replaced with 'Q'
   *all others are displayed as underscores '_'
@@ -111,8 +118,8 @@ public class QueenBoard {
 
   private boolean solveH(QueenBoard b, int c) {
   	if (c == b.length()) {
-  		System.out.println(b);
-  		//return true;
+  		//System.out.println(b);
+  		return true;
   	}
   	else {
   		for (int r = 0; r < b.length(); r++) {
@@ -132,6 +139,11 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions() {
+  	for (int i = 0; i < board.length; i++) {
+  		for (int j = 0; j < board.length; j++) {
+  			if (board[i][j] != 0) throw new IllegalStateException("the board is not empty");
+  		}
+  	}
   	countH(this, 0);
   	return counter;
   }
