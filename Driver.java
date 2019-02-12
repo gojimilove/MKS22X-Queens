@@ -1,10 +1,12 @@
 public class Driver {
   public static void main(String[] args) {
-    QueenBoard q8 = new QueenBoard(8);
-    //System.out.println(q8);
-    System.out.println("8x8: "+q8.solve());
+    QueenBoard q8 = new QueenBoard(24);
+    System.out.println(q8);
+    System.out.println("Number of Solutions: "+q8.countSolutions());
+    System.out.println(q8.solve());
     System.out.println(q8);
 
+    /*
     QueenBoard q1 = new QueenBoard(1);
     //System.out.println(q1);
     System.out.println("1x1: "+q1.solve());
@@ -29,10 +31,13 @@ public class Driver {
     //System.out.println(q10);
     System.out.println("10x10: "+q10.solve());
     System.out.println(q10);
-    // qb.addQueen(0,0);
-    // System.out.println(qb);
-    // qb.removeQueen(0,0);
-    // System.out.println(qb);
+    */
+
+    // TESTING ADD AND REMOVE QUEEN
+    // q8.addQueen(5,5);
+    // System.out.println(q8);
+    // q8.removeQueen(5,5);
+    // System.out.println(q8);
     // qb.solve();
   }
 }
