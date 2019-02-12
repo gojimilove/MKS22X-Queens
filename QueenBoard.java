@@ -74,13 +74,6 @@ public class QueenBoard {
   }
 
   /**
-  @return the number value at the given row and column of the board
-  */
-  public int getSpace(int r, int c) {
-  	return board[r][c];
-  }
-
-  /**
   *@return The output string formatted as follows:
   *All numbers that represent queens are replaced with 'Q'
   *all others are displayed as underscores '_'
